@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from pandas import DataFrame
 import math
+import numpy as np
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
@@ -32,6 +33,23 @@ def index():
             for column in columns: 
                 m[i%6].append(column.get_text(strip=True))
                 i += 1
+        for i in range(len(m)): m[i] = m[i][1:]
+        #print(m)
+        
+        data = []
+        output = []
+
+        for j in range(len(m[0])):
+            for i in range(1,len(m)):
+                data.append([1, int(m[0][j]),int(m[i][j])])
+                output.append(i)
+        #weight, lift, constant
+        x = np.array(data)
+        y = np.array(output)
+        
+        input = np.array([1,weight,lift])
+        w = np.linalg.lstsq(x,y,rcond=None)[0]
+        '''
         data = {}
         for i in range(1,len(m[0])): data[m[0][i]] = []
         for j in range(1,len(m[0])):
@@ -43,11 +61,12 @@ def index():
         for i in range(len(weight_class)):
             if lift < weight_class[i]: break
             res += 1
+        '''
 
     
     
     
-    return render_template('index.html', result=res)
+    return render_template('index.html', result=np.dot(input,w))
 
 if __name__ == '__main__':
     app.run(debug=True)
