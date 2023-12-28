@@ -68,7 +68,7 @@ def index():
     
     
     
-    return render_template('index.html', result=np.dot(input,w))
+    return render_template('index.html', result=str(round(np.dot(input,w),1))+'/5.0')
 
 if __name__ == '__main__':
     app.run(debug=True)
