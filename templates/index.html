@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Number Processing</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+    <title>Fitness Tracker</title>
 </head>
 <body>
-    <h1>Number Processing</h1>
+    <h1>Fitness Tracker</h1>
     <form method="post">
         <label for="user_input">Enter Weight:</label>
         <input type="text" id="user_weight" name="user_weight" required>
         <label for="user_input">Enter Lift:</label>
         <input type="text" id="user_lift" name="user_lift" required>
+        <label for="user_input">Enter Reps:</label>
+        <input type="text" id="user_reps" name="user_reps" required>
         <button type="submit">Submit</button>
     </form>
     {% if result %}

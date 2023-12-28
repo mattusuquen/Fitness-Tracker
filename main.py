@@ -4,17 +4,19 @@ from bs4 import BeautifulSoup
 from pandas import DataFrame
 import math
 import numpy as np
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     result = None
     weight = 130
     lift = 205
+    #reps = 1
     if request.method == 'POST':
         # Get the number from the form
         weight = int(request.form.get('user_weight'))
         lift = int(request.form.get('user_lift'))
+        #reps = int(request.form.get('user_reps'))
 
     url = 'https://strengthlevel.com/strength-standards/bench-press'
     response = requests.get(url)
@@ -43,7 +45,7 @@ def index():
             for i in range(1,len(m)):
                 data.append([1, int(m[0][j]),int(m[i][j])])
                 output.append(i)
-        #weight, lift, constant
+        #constant,weight, lift
         x = np.array(data)
         y = np.array(output)
         
